@@ -14,10 +14,16 @@ void printPosition(void* self){
   printf("Position: x %f, y %f\n", pos->x, pos->y);
 }
 
+typedef struct{  }Player;
+static const char Player_id;
+
 int main(void){
   Trait_entity te;
 
+  newTrait(&te, &Player_id, &(Player){  });
   newTrait(&te, &Position_id, &(Position){ 3, 4 });
+
+  if(trait_find(&te, &Player_id)) printf("Is the player\n");
 
   printPosition(&te);
 }

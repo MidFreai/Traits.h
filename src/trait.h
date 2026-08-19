@@ -48,7 +48,7 @@ void* trait_da_find(Trait_da* da, const char* id);
 
 Trait_entry newTrait_entry(const void* id, void* trait);
 
-void newTrait(void* self, const void* id, void* trait);
+bool newTrait(void* self, const void* id, void* trait);
 
 #endif //TRAIT_H
 
@@ -116,8 +116,8 @@ Trait_entry newTrait_entry(const void* id, void* trait){
   return (Trait_entry){ id, trait };
 }
 
-void newTrait(void* self, const void* id, void* trait){
-  trait_append(self, newTrait_entry(id, trait));
+bool newTrait(void* self, const void* id, void* trait){
+  return trait_append(self, newTrait_entry(id, trait));
 }
 
 #endif // TRAIT_IMPL
