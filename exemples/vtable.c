@@ -27,7 +27,7 @@ void capshow(void* self){
 
 int main(void){
   Cap_count t = {0};
-  trait_append(&t, (Trait_entry){ &Show_id, &(Show){ capshow } });
+  newTrait(&t, &Show_id, &(Show){ capshow });
   t.cap = 69;
   show(&t);
 
