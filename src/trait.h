@@ -46,6 +46,10 @@ void* trait_find(void* self, const void* id);
 // Using for find if the type impl the trait // This func is used while you dont want/need to cast to void*
 void* trait_da_find(Trait_da* da, const char* id);
 
+Trait_entry newTrait_entry(const void* id, void* trait);
+
+void newTrait(void* self, const void* id, void* trait);
+
 #endif //TRAIT_H
 
 #ifdef TRAIT_IMPL
@@ -107,5 +111,13 @@ bool trait_append(void* self, Trait_entry entry){
 }
 
 bool trait_append_many(void* self, Trait_entry entries[]){}
+
+Trait_entry newTrait_entry(const void* id, void* trait){
+  return (Trait_entry){ id, trait };
+}
+
+void newTrait(void* self, const void* id, void* trait){
+  trait_append(self, newTrait_entry(id, trait));
+}
 
 #endif // TRAIT_IMPL
