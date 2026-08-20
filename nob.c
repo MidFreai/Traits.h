@@ -17,11 +17,13 @@ int main(int argc, char* argv[]){
   nob_cmd_append(&cmd, "-o", "ecs", "exemples/ecs.c");
   nob_cmd_run(&cmd);
 
-  nob_cmd_append(&cmd, "./vtable");
-  nob_cmd_run(&cmd);
+  if(argv[1] && !strcmp("run", argv[1])){
 
-  nob_cmd_append(&cmd, "./ecs");
-  nob_cmd_run(&cmd);
+    nob_cmd_append(&cmd, "./vtable");
+    nob_cmd_run(&cmd);
 
+    nob_cmd_append(&cmd, "./ecs");
+    nob_cmd_run(&cmd);
+  }
   return 0;
 }
