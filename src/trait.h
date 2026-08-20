@@ -102,6 +102,10 @@ bool trait_da_reserve(Trait_da* da, size_t expected_capacity){
 void freeTrait(void* self){
   Trait_da* da = self;
   free(da->data);
+
+  da->data = NULL;
+  da->count = 0;
+  da->capacity = 0;
 }
 
 bool trait_da_append(Trait_da* da, Trait_entry entry){
