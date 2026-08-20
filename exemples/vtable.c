@@ -31,5 +31,8 @@ int main(void){
   t.cap = 69;
   show(&t);
 
+  freeTrait(&t);
+  show(&t);
+
   return 0;
 }

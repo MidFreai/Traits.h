@@ -30,4 +30,13 @@ int main(void){
   if(trait_find(&te, &Player_id)) printf("Is the player\n");
 
   printPosition(&te);
+
+  freeTrait(&te);
+
+  newPlayer(&te);
+  if(trait_find(&te, &Player_id)) printf("Is the player ... again\n");
+
+  printPosition(&te);
+
+  return 0;
 }
