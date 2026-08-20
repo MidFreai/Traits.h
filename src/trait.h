@@ -6,7 +6,7 @@
 // for size_t
 #include <stddef.h>
 
-//for realloc
+//for realloc and free
 #include <stdlib.h>
 
 // The entry is the way to store traits with the ids
@@ -33,6 +33,9 @@ static const size_t Trait_da_capacity = 1;
 
 // To ensure and reserve memory for the array
 bool trait_da_reserve(Trait_da* da, size_t expected_capacity);
+
+// free the data of the Trait_da
+void freeTrait(void* self);
 
 // Append a new item in the end // This func is used while you dont want/need to cast to void*
 bool trait_da_append(Trait_da* da, Trait_entry entry);
@@ -96,6 +99,11 @@ bool trait_da_reserve(Trait_da* da, size_t expected_capacity){
   return true;
 }
 
+void freeTrait(void* self){
+  Trait_da* da = self;
+  free(da->data);
+}
+
 bool trait_da_append(Trait_da* da, Trait_entry entry){
   if(!trait_da_reserve(da, da->count + 1)) return false;
   da->data[da->count++] = entry;
@@ -109,8 +117,6 @@ bool trait_append(void* self, Trait_entry entry){
   da->data[da->count++] = entry;
   return true;
 }
-
-bool trait_append_many(void* self, Trait_entry entries[]){}
 
 Trait_entry newTrait_entry(const void* id, void* trait){
   return (Trait_entry){ id, trait };
