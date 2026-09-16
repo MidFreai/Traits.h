@@ -1,0 +1,48 @@
+#define TRAIT_IMPL
+#include <trait.h>
+#include <stdio.h>
+
+typedef Trait_da Component_table;
+
+void* findComponent(void* entity, Component_table* ct){
+  for(size_t i = 0;i < ct->count; i++){
+    if(ct->data[i].id == entity){
+        return ct->data[i].trait;
+    }
+  }
+  return NULL;
+}
+
+typedef struct{
+  float x;
+  float y;
+}Position;
+static const char Position_id;
+Component_table PositionTable;
+
+void printPosition(void* self){
+  Position* pos = trait_find(self, &Position_id);
+  if(pos == NULL) return;
+  printf("Position: x %f, y %f\n", pos->x, pos->y);
+}
+
+typedef struct{  }Player;
+static const char Player_id;
+
+bool newPlayer(void* self){
+  return newTrait(self, &Player_id, &(Player){  });
+}
+
+int main(void){
+  Trait_entity te;
+  trait_da_append(&PositionTable, newTrait_entry(&te, &(Position){ 4, 5 }));
+
+  newPlayer(&te);
+  newTrait(&te, &Position_id, &(Position){ 3, 4 });
+
+  findComponent(&te, &PositionTable);
+
+  if(trait_find(&te, &Player_id)) printf("Is the player\n");
+
+  printPosition(&te);
+}
